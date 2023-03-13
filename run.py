@@ -18,7 +18,7 @@ SHEET = GSPREAD_CLIENT.open("love_sandwiches")
 
 # CSV (comma separated values)
 def get_sales_data():
-    """ 
+    """
     Get sales figures input from the user
     """
     print("Please enter sales data from the last market.")
@@ -26,6 +26,23 @@ def get_sales_data():
     print("Example: 10,20,30,40,50,60\n")
 
     data_str = input("Enter your data here: ")
-    print(f"The data provided is {data_str}")
+    
+    sales_data = data_str.split(',')  # remove commas from str
+    #  print(sales_data) prints ['1', '2', '3', '4', '5', '6']
+    validate_data(sales_data)
 
-get_sales_data() # The data provided is {data_str}
+def validate_data(values):
+    """
+    Inside the try, converts all str values into ints.
+    Raises ValueError if strs cannot be converted into int
+    or if there aren't exactly 6 values.
+    """
+    try:
+        if len(values) != 6:
+            raise ValueError(
+                f"Exactly 6 values required, you provided {len(values)}"
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
+
+get_sales_data()  # The data provided is {data_str}
